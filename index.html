@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOLMAR KOREA - 뷰티와 건강을 선도하는 기업</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #6a5acd;
+            --accent: #00c2cb;
+            --dark: #2d2d44;
+            --light: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(45, 45, 68, 0.7), rgba(45, 45, 68, 0.7)), 
+                        url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* 회사 소개 섹션 */
+        .about {
+            background-color: white;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .about-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        /* 비전 섹션 */
+        .vision {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+        }
+
+        .vision-cards {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .vision-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .vision-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .vision-card i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .vision-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 제품 섹션 */
+        .products {
+            background-color: var(--light);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .product-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 연혁 섹션 */
+        .history {
+            background-color: white;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 4px var(--primary), inset 0 2px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+
+        .timeline-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .timeline-item p {
+            color: #666;
+        }
+
+        /* 연락처 섹션 */
+        .contact {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail i {
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            width: 30px;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 5% 1.5rem;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+
+            nav ul li {
+                margin: 0.5rem 1rem 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-container {
+                flex-direction: column;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::after {
+                left: 21px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-spa"></i>
+                <span>KOLMAR KOREA</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">홈</a></li>
+                    <li><a href="#about">회사소개</a></li>
+                    <li><a href="#vision">비전</a></li>
+                    <li><a href="#products">제품</a></li>
+                    <li><a href="#history">연혁</a></li>
+                    <li><a href="#contact">연락처</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>뷰티와 건강을 선도하는 KOLMAR KOREA</h1>
+            <p>혁신적인 연구와 최고의 품질로 아름다움과 건강한 삶을 만들어 갑니다.</p>
+            <a href="#about" class="btn">더 알아보기</a>
+        </div>
+    </section>
+
+    <!-- 회사 소개 섹션 -->
+    <section id="about" class="about">
+        <div class="section-title">
+            <h2>회사 소개</h2>
+            <p>KOLMAR KOREA는 무엇을 추구하는 기업인가요?</p>
+        </div>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="KOLMAR KOREA 회사 이미지">
+            </div>
+            <div class="about-content">
+                <h3>뷰티와 웰니스의 새로운 패러다임을 제시합니다</h3>
+                <p>KOLMAR KOREA는 1990년 설립 이후로 뷰티와 건강 산업에서 혁신적인 제품과 솔루션을 제공해 왔습니다. 우리의 목표는 고객의 삶의 질을 향상시키는 최고의 제품을 개발하는 것입니다.</p>
+                <p>과학적 연구와 기술 혁신에 기반한 우리의 접근 방식은 국내외 시장에서 인정받고 있으며, 지속 가능한 성장과 사회적 책임을 중요시하는 기업 문화를 가지고 있습니다.</p>
+                <a href="#vision" class="btn">비전 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 비전 섹션 -->
+    <section id="vision" class="vision">
+        <div class="section-title">
+            <h2>비전과 가치</h2>
+            <p>KOLMAR KOREA가 지향하는 방향과 핵심 가치</p>
+        </div>
+        <div class="vision-cards">
+            <div class="vision-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>혁신</h3>
+                <p>지속적인 연구 개발과 기술 혁신을 통해 최고의 제품을 창조합니다.</p>
+            </div>
+            <div class="vision-card">
+                <i class="fas fa-heart"></i>
+                <h3>품질</h3>
+                <p>엄격한 품질 관리와 검증된 원료를 통해 고객의 신뢰를 얻습니다.</p>
+            </div>
+            <div class="vision-card">
+                <i class="fas fa-globe"></i>
+                <h3>지속가능성</h3>
+                <p>환경을 생각하는 지속 가능한 비즈니스 모델을 추구합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 제품 섹션 -->
+    <section id="products" class="products">
+        <div class="section-title">
+            <h2>주요 제품</h2>
+            <p>KOLMAR KOREA의 대표적인 제품 라인업</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1556228579-4a5c9c6b9c82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="스킨케어 제품">
+                </div>
+                <div class="product-content">
+                    <h3>스킨케어 라인</h3>
+                    <p>피부 과학에 기반한 고효능 스킨케어 제품으로 건강하고 빛나는 피부를 선사합니다.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80" alt="메이크업 제품">
+                </div>
+                <div class="product-content">
+                    <h3>메이크업 라인</h3>
+                    <p>피부에 자극이 적으면서도 뛰어난 커버력과 지속력을 자랑하는 메이크업 제품입니다.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1594736797933-d0d69bc8c433?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="헤어케어 제품">
+                </div>
+                <div class="product-content">
+                    <h3>헤어케어 라인</h3>
+                    <p>두피 건강과 모발 영양을 동시에 케어하는 전문 헤어케어 솔루션을 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연혁 섹션 -->
+    <section id="history" class="history">
+        <div class="section-title">
+            <h2>회사 연혁</h2>
+            <p>KOLMAR KOREA의 성장 과정</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1990</h3>
+                    <p>KOLMAR KOREA 설립, 화장품 OEM/ODM 사업 시작</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>1998</h3>
+                    <p>첫 해외 수출 계약 체결, 글로벌 시장 진출</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2005</h3>
+                    <p>연구소 확장 및 첨단 연구 장비 도입</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2012</h3>
+                    <p>자체 브랜드 런칭, 소비자 시장 진출</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2020</h3>
+                    <p>ESG 경영 도입, 지속가능경영 본격화</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="contact">
+        <div class="section-title">
+            <h2>연락처</h2>
+            <p>KOLMAR KOREA에 문의하세요</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>함께 성장할 수 있는 기회를 찾고 계신가요?</h3>
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>서울특별시 강남구 테헤란로 123, KOLMAR 타워</p>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-phone"></i>
+                        <p>02-1234-5678</p>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <p>contact@kolmarkorea.com</p>
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">메시지</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">메시지 보내기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">KOLMAR KOREA</div>
+                <p>뷰티와 건강을 위한 혁신적인 솔루션</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+                <a href="#">사이트맵</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 KOLMAR KOREA Co., Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 스크롤 시 헤더 스타일 변경
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(45, 45, 68, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
