@@ -4,33 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-POP HOUSE 운영 방안</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        :root {
+            --primary: #FF4B91;
+            --secondary: #6C4BFF;
+            --accent: #FFD700;
+            --dark: #1A1A2E;
+            --light: #F8F9FF;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--dark) 0%, #16213E 100%);
             min-height: 100vh;
             padding: 20px;
+            color: var(--light);
         }
         
         .ppt-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .slide {
             display: none;
             padding: 60px 80px;
             min-height: 700px;
+            position: relative;
         }
         
         .slide.active {
@@ -41,19 +55,34 @@
             text-align: center;
             margin-bottom: 50px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #764ba2;
+            border-bottom: 2px solid var(--primary);
+            position: relative;
+        }
+        
+        .slide-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
         }
         
         .slide-title {
-            font-size: 2.8rem;
-            color: #333;
+            font-size: 3rem;
+            color: var(--light);
             margin-bottom: 15px;
-            font-weight: 700;
+            font-weight: 900;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-family: 'Black Han Sans', sans-serif;
+            letter-spacing: -0.5px;
         }
         
         .slide-subtitle {
-            font-size: 1.4rem;
-            color: #667eea;
+            font-size: 1.5rem;
+            color: var(--accent);
             font-weight: 500;
         }
         
@@ -65,19 +94,45 @@
         }
         
         .feature-card {
-            background: #f8f9ff;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             padding: 30px;
-            border-left: 5px solid #667eea;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             margin-bottom: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 75, 145, 0.1) 0%, rgba(108, 75, 255, 0.1) 100%);
+            z-index: -1;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
         }
         
         .feature-title {
-            font-size: 1.4rem;
-            color: #333;
+            font-size: 1.5rem;
+            color: var(--light);
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-title i {
+            margin-right: 10px;
+            color: var(--accent);
         }
         
         .feature-list {
@@ -85,78 +140,96 @@
         }
         
         .feature-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
-            padding-left: 20px;
+            padding-left: 25px;
+            line-height: 1.6;
         }
         
         .feature-list li:before {
-            content: "•";
-            color: #667eea;
+            content: "★";
+            color: var(--accent);
             font-weight: bold;
             position: absolute;
             left: 0;
+            font-size: 0.9rem;
         }
         
         .eoz-badge {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 30px;
             font-size: 0.9rem;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(255, 75, 145, 0.3);
         }
         
         .navigation {
             display: flex;
             justify-content: space-between;
             padding: 20px 80px;
-            background: #f8f9ff;
+            background: rgba(26, 26, 46, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .nav-btn {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
             padding: 12px 25px;
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 500;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(108, 75, 255, 0.3);
         }
         
         .nav-btn:hover {
-            background: #764ba2;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 75, 255, 0.5);
+        }
+        
+        .nav-btn i {
+            margin: 0 5px;
         }
         
         .slide-counter {
-            color: #666;
-            font-size: 1rem;
+            color: var(--light);
+            font-size: 1.1rem;
             align-self: center;
+            font-weight: 500;
         }
         
         .highlight {
-            color: #667eea;
+            color: var(--accent);
             font-weight: 600;
         }
         
         .program-schedule {
-            background: white;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             padding: 25px;
-            border: 2px solid #667eea;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         
         .schedule-day {
             font-weight: bold;
-            color: #764ba2;
+            color: var(--accent);
             margin-bottom: 10px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            margin-top: 20px;
+        }
+        
+        .schedule-day:first-child {
+            margin-top: 0;
         }
         
         .point-system {
@@ -167,11 +240,17 @@
         }
         
         .point-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 15px;
             text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .point-card:hover {
+            transform: translateY(-5px);
         }
         
         .metric-grid {
@@ -181,18 +260,134 @@
         }
         
         .metric-card {
-            background: #f8f9ff;
+            background: rgba(255, 255, 255, 0.08);
             padding: 25px;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         
         .metric-value {
-            font-size: 2rem;
-            color: #667eea;
+            font-size: 2.5rem;
+            color: var(--accent);
             font-weight: bold;
             margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            max-width: 300px;
+            margin: 0 auto 30px;
+            display: block;
+        }
+        
+        .cover-content {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cover-title {
+            font-size: 4.5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Black Han Sans', sans-serif;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cover-subtitle {
+            font-size: 1.8rem;
+            color: var(--light);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .cover-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .cover-feature {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            width: 200px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .cover-feature:hover {
+            transform: translateY(-10px);
+        }
+        
+        .cover-feature i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .cover-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 75, 145, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(108, 75, 255, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         
         @media (max-width: 768px) {
@@ -201,7 +396,11 @@
             }
             
             .slide-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .cover-title {
+                font-size: 3rem;
             }
             
             .content-grid {
@@ -219,33 +418,50 @@
             .navigation {
                 padding: 20px;
             }
+            
+            .cover-features {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="ppt-container">
-        <!-- Slide 1: Title -->
+        <!-- Slide 1: Cover -->
         <div class="slide active" id="slide1">
-            <div class="slide-header">
-                <h1 class="slide-title">K-POP HOUSE 운영 방안</h1>
-                <p class="slide-subtitle">EOZ(English Only Zone) 중심의 차별화된 글로벌 K-POP 체험 기숙사</p>
+            <div class="floating-elements">
+                <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
+                <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 80%;"></div>
+                <div class="floating-element" style="width: 80px; height: 80px; top: 80%; left: 20%;"></div>
+                <div class="floating-element" style="width: 120px; height: 120px; top: 30%; left: 70%;"></div>
             </div>
-            <div style="text-align: center; margin-top: 80px;">
-                <div style="font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto 50px;">
-                    세계 각국의 K-POP 팬들과 연예인 지망생이 함께 생활하며 영어 실력과 K-POP 전문성을 동시에 키우는 특별한 공간
+            <div class="cover-bg"></div>
+            <div class="cover-content">
+                <!-- 로고 자리 - 실제로는 WORLD K-POP CENTER 로고 이미지가 들어갑니다 -->
+                <div class="logo">
+                    <div style="font-size: 2.5rem; font-weight: bold; color: var(--accent); text-align: center; font-family: 'Black Han Sans', sans-serif;">
+                        WORLD K-POP CENTER
+                    </div>
                 </div>
-                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                    <div style="background: #667eea; color: white; padding: 15px 25px; border-radius: 10px;">
-                        <div style="font-size: 1.8rem; font-weight: bold;">EOZ</div>
-                        <div>English Only Zone</div>
+                <h1 class="cover-title">K-POP HOUSE</h1>
+                <p class="cover-subtitle">English Only Zone을 중심으로 한 글로벌 K-POP 체험 기숙사<br>전 세계 K-POP 팬들과 연예인 지망생이 함께하는 특별한 공간</p>
+                
+                <div class="cover-features">
+                    <div class="cover-feature">
+                        <i class="fas fa-globe-asia"></i>
+                        <h3>English Only Zone</h3>
+                        <p>영어만 사용하는 특별 공간</p>
                     </div>
-                    <div style="background: #764ba2; color: white; padding: 15px 25px; border-radius: 10px;">
-                        <div style="font-size: 1.8rem; font-weight: bold;">K-POP</div>
-                        <div>아티스트 체험</div>
+                    <div class="cover-feature">
+                        <i class="fas fa-star"></i>
+                        <h3>연예인 체험</h3>
+                        <p>K-POP 아티스트와의 교류</p>
                     </div>
-                    <div style="background: #ff6b6b; color: white; padding: 15px 25px; border-radius: 10px;">
-                        <div style="font-size: 1.8rem; font-weight: bold;">남산</div>
-                        <div>K-POP 성지 연계</div>
+                    <div class="cover-feature">
+                        <i class="fas fa-music"></i>
+                        <h3>K-POP 교육</h3>
+                        <p>댄스, 보컬, 태권도 클래스</p>
                     </div>
                 </div>
             </div>
@@ -260,8 +476,8 @@
             <div class="content-grid">
                 <div>
                     <div class="feature-card">
-                        <div class="eoz-badge">EOZ 핵심</div>
-                        <h3 class="feature-title">계층별 영어 프로그램</h3>
+                        <div class="eoz-badge"><i class="fas fa-language"></i> EOZ 핵심 프로그램</div>
+                        <h3 class="feature-title"><i class="fas fa-layer-group"></i> 계층별 영어 프로그램</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">Beginner Zone:</span> 기본 회화 위주 생활 영어</li>
                             <li><span class="highlight">Advanced Zone:</span> K-POP 전문 용어, 인터뷰 영어</li>
@@ -270,8 +486,8 @@
                     </div>
                     
                     <div class="feature-card">
-                        <div class="eoz-badge">EOZ 핵심</div>
-                        <h3 class="feature-title">K-English Pass 앱 시스템</h3>
+                        <div class="eoz-badge"><i class="fas fa-mobile-alt"></i> EOZ 핵심 시스템</div>
+                        <h3 class="feature-title"><i class="fas fa-passport"></i> K-English Pass 앱 시스템</h3>
                         <ul class="feature-list">
                             <li>일일 영어 사용 시간 측정 및 분석</li>
                             <li>개인별 맞춤형 영어 학습 리포트 제공</li>
@@ -279,10 +495,14 @@
                             <li>주간/월간 목표 설정 및 성과 추적</li>
                         </ul>
                     </div>
+                    
+                    <div class="image-placeholder">
+                        <i class="fas fa-users" style="font-size: 3rem;"></i>
+                    </div>
                 </div>
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">EOZ 준수 모니터링</h3>
+                        <h3 class="feature-title"><i class="fas fa-chart-line"></i> EOZ 준수 모니터링</h3>
                         <ul class="feature-list">
                             <li>공용 공간 음성 인식 모니터링 시스템</li>
                             <li>EOZ 준수율에 따른 보상/인센티브 제공</li>
@@ -292,13 +512,17 @@
                     </div>
                     
                     <div class="feature-card">
-                        <h3 class="feature-title">전문 영어 코칭</h3>
+                        <h3 class="feature-title"><i class="fas fa-chalkboard-teacher"></i> 전문 영어 코칭</h3>
                         <ul class="feature-list">
                             <li>원어민 K-POP 전문 영어 강사 상주</li>
                             <li>1:1 맞춤형 영어 코칭 세션</li>
                             <li>K-POP 뉴스/가사 분석을 통한 학습</li>
                             <li>실제 오디션/인터뷰 상황 롤플레잉</li>
                         </ul>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <i class="fas fa-graduation-cap" style="font-size: 3rem;"></i>
                     </div>
                 </div>
             </div>
@@ -313,7 +537,7 @@
             <div class="content-grid">
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">셰어하우스 멘토링 시스템</h3>
+                        <h3 class="feature-title"><i class="fas fa-hands-helping"></i> 셰어하우스 멘토링 시스템</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">주간 멘토링 데이:</span> 연예인/지망생의 생활 멘토링</li>
                             <li><span class="highlight">1:1 크리틱 세션:</span> 보컬, 댄스, 연기 실기 지도</li>
@@ -323,7 +547,7 @@
                     </div>
                     
                     <div class="feature-card">
-                        <h3 class="feature-title">데일리 연예인 체험</h3>
+                        <h3 class="feature-title"><i class="fas fa-calendar-day"></i> 데일리 연예인 체험</h3>
                         <ul class="feature-list">
                             <li>아침 루틴 챌린지: 연예인과 함께하는 아침 운동/보컬 트레이닝</li>
                             <li>공연 뒷무대 체험: 월드케이팝센터 공연 준비 과정 참관</li>
@@ -334,7 +558,7 @@
                 </div>
                 <div>
                     <div class="program-schedule">
-                        <h3 style="color: #764ba2; margin-bottom: 20px;">주간 멘토링 스케줄</h3>
+                        <h3 style="color: var(--accent); margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-alt"></i> 주간 멘토링 스케줄</h3>
                         <div class="schedule-day">월요일: 보컬 트레이닝 데이</div>
                         <ul class="feature-list">
                             <li>오전 10시: 기본 발성 연습</li>
@@ -356,6 +580,10 @@
                             <li>오후 6시: 포토샷 포징 워크숍</li>
                         </ul>
                     </div>
+                    
+                    <div class="image-placeholder" style="margin-top: 20px;">
+                        <i class="fas fa-microphone-alt" style="font-size: 3rem;"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -369,7 +597,7 @@
             <div class="content-grid">
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">남산 K-POP 성지 순례</h3>
+                        <h3 class="feature-title"><i class="fas fa-mountain"></i> 남산 K-POP 성지 순례</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">K-POP 스타 핫플레이스 탐방:</span> 실제 뮤직비디오 촬영지 방문</li>
                             <li><span class="highlight">남산팔각정 보컬 레코딩:</span> 전통과 현대가交融되는 특별한 녹음 경험</li>
@@ -378,8 +606,13 @@
                         </ul>
                     </div>
                     
+                    <div class="image-placeholder">
+                        <i class="fas fa-landmark" style="font-size: 3rem;"></i>
+                    </div>
+                </div>
+                <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">명동 K-컬처 투어</h3>
+                        <h3 class="feature-title"><i class="fas fa-shopping-bag"></i> 명동 K-컬처 투어</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">K-뷰티 쇼핑 동행:</span> 연예인 지망생과 함께하는 명동 쇼핑</li>
                             <li><span class="highlight">스트리트 푸드 투어:</span> 한국 대표 음식 체험</li>
@@ -387,23 +620,9 @@
                             <li><span class="highlight">K-패션 스타일링:</span> 한국 트렌디한 패션 체험</li>
                         </ul>
                     </div>
-                </div>
-                <div>
-                    <div class="feature-card">
-                        <h3 class="feature-title">주요 연계 프로그램</h3>
-                        <div style="background: #f0f2ff; padding: 20px; border-radius: 10px; margin-top: 15px;">
-                            <h4 style="color: #667eea; margin-bottom: 10px;">남산-명동 연계 투어</h4>
-                            <ul class="feature-list">
-                                <li>오전: 남산 K-POP 성지 순례 및 콘텐츠 촬영</li>
-                                <li>점심: 명동 전통 시장에서의 한국 식사 체험</li>
-                                <li>오후: 명동 K-뷰티 & 패션 쇼핑</li>
-                                <li>저녁: 명동 거리 푸드 투어 및 공연 관람</li>
-                            </ul>
-                        </div>
-                    </div>
                     
                     <div class="feature-card">
-                        <h3 class="feature-title">특별 이벤트</h3>
+                        <h3 class="feature-title"><i class="fas fa-star"></i> 특별 이벤트</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">월간 K-POP 스타 밋업:</span> 남산에서의 특별 팬 미팅</li>
                             <li><span class="highlight">명동 스트리트 퍼포먼스:</span> 공개 댄스/보컬 공연 기회</li>
@@ -423,21 +642,21 @@
             </div>
             
             <div style="margin-bottom: 30px;">
-                <h3 style="color: #333; margin-bottom: 20px; text-align: center;">K-English 포인트 제도</h3>
+                <h3 style="color: var(--light); margin-bottom: 20px; text-align: center;"><i class="fas fa-coins"></i> K-English 포인트 제도</h3>
                 <div class="point-system">
                     <div class="point-card">
-                        <h4>EOZ 준수 포인트</h4>
-                        <div style="font-size: 2rem; margin: 15px 0;">10pt/시간</div>
+                        <h4><i class="fas fa-clock"></i> EOZ 준수 포인트</h4>
+                        <div style="font-size: 2.5rem; margin: 15px 0; color: var(--accent);">10pt/시간</div>
                         <p>공용 공간 영어 사용 시 시간당 적립</p>
                     </div>
                     <div class="point-card">
-                        <h4>영어 발표 포인트</h4>
-                        <div style="font-size: 2rem; margin: 15px 0;">50pt/회</div>
+                        <h4><i class="fas fa-bullhorn"></i> 영어 발표 포인트</h4>
+                        <div style="font-size: 2.5rem; margin: 15px 0; color: var(--accent);">50pt/회</div>
                         <p>세션 참여 및 발표 시 추가 적립</p>
                     </div>
                     <div class="point-card">
-                        <h4>콘텐츠 제작 포인트</h4>
-                        <div style="font-size: 2rem; margin: 15px 0;">100pt/개</div>
+                        <h4><i class="fas fa-video"></i> 콘텐츠 제작 포인트</h4>
+                        <div style="font-size: 2.5rem; margin: 15px 0; color: var(--accent);">100pt/개</div>
                         <p>영어 콘텐츠 제작 및 공유 시 적립</p>
                     </div>
                 </div>
@@ -446,7 +665,7 @@
             <div class="content-grid">
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">포인트 사용처</h3>
+                        <h3 class="feature-title"><i class="fas fa-gift"></i> 포인트 사용처</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">연예인 미팅 우선권:</span> 500포인트</li>
                             <li><span class="highlight">전문가 피드백 세션:</span> 300포인트</li>
@@ -459,13 +678,17 @@
                 </div>
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">레벨별 성과 보상</h3>
+                        <h3 class="feature-title"><i class="fas fa-trophy"></i> 레벨별 성과 보상</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">주간 K-English Star:</span> 특별 이벤트 초대권</li>
                             <li><span class="highlight">월간 Best Communicator:</span> 연예인과의 1:1 디너</li>
                             <li><span class="highlight">분기별 영어 마스터:</span> 방송국 프로그램 관람 기회</li>
                             <li><span class="highlight">과정 수료 시:</span> 월드케이팝센터 공식 수료증 및 추천서</li>
                         </ul>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <i class="fas fa-award" style="font-size: 3rem;"></i>
                     </div>
                 </div>
             </div>
@@ -478,25 +701,25 @@
                 <p class="slide-subtitle">체계적인 지표 관리와 지속적 개선을 위한 시스템</p>
             </div>
             
-            <h3 style="color: #333; margin: 30px 0 20px; text-align: center;">EOZ 성과 측정 지표</h3>
+            <h3 style="color: var(--light); margin: 30px 0 20px; text-align: center;"><i class="fas fa-chart-bar"></i> EOZ 성과 측정 지표</h3>
             <div class="metric-grid">
                 <div class="metric-card">
-                    <h4>영어 사용률</h4>
+                    <h4><i class="fas fa-comments"></i> 영어 사용률</h4>
                     <div class="metric-value">80%+</div>
                     <p>일일 목표 사용률</p>
                 </div>
                 <div class="metric-card">
-                    <h4>콘텐츠 제작량</h4>
+                    <h4><i class="fas fa-film"></i> 콘텐츠 제작량</h4>
                     <div class="metric-value">3+</div>
                     <p>주간 숏폼 영상 목표</p>
                 </div>
                 <div class="metric-card">
-                    <h4>SNS 도달률</h4>
+                    <h4><i class="fas fa-eye"></i> SNS 도달률</h4>
                     <div class="metric-value">10K+</div>
                     <p>제작 콘텐츠 평균 조회수</p>
                 </div>
                 <div class="metric-card">
-                    <h4>재방문율</h4>
+                    <h4><i class="fas fa-redo"></i> 재방문율</h4>
                     <div class="metric-value">25%</div>
                     <p>6개월 내 재방문 목표</p>
                 </div>
@@ -505,7 +728,7 @@
             <div class="content-grid" style="margin-top: 40px;">
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">만족도 관리</h3>
+                        <h3 class="feature-title"><i class="fas fa-smile"></i> 만족도 관리</h3>
                         <ul class="feature-list">
                             <li>주간 만족도 설문조사 실시</li>
                             <li>실시간 피드백 시스템 운영</li>
@@ -516,7 +739,7 @@
                 </div>
                 <div>
                     <div class="feature-card">
-                        <h3 class="feature-title">지속적 개선 시스템</h3>
+                        <h3 class="feature-title"><i class="fas fa-sync-alt"></i> 지속적 개선 시스템</h3>
                         <ul class="feature-list">
                             <li>분기별 프로그램 개선 워크숍</li>
                             <li>선진 사례 벤치마킹 및 도입</li>
@@ -535,32 +758,32 @@
                 <p class="slide-subtitle">글로벌 K-POP 팬덤과 아티스트의 꿈을 연결하는 특별한 공간</p>
             </div>
             
-            <div style="text-align: center; margin-top: 80px;">
-                <div style="font-size: 1.5rem; color: #666; max-width: 800px; margin: 0 auto 50px; line-height: 1.8;">
+            <div style="text-align: center; margin-top: 60px;">
+                <div style="font-size: 1.5rem; color: var(--light); max-width: 800px; margin: 0 auto 50px; line-height: 1.8;">
                     K-POP HOUSE는 단순한 기숙사를 넘어, 전 세계 K-POP 팬들이 한국의 K-POP 문화를 깊이 체험하고, 
                     영어 실력을 향상시키며, 실제 연예인 및 지망생과 교류할 수 있는 <span class="highlight">유일무이한 공간</span>입니다.
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin: 0 auto;">
-                    <div style="background: #f8f9ff; padding: 30px; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 3rem; color: #667eea; margin-bottom: 15px;">🌍</div>
-                        <h3 style="color: #333; margin-bottom: 15px;">글로벌 네트워크</h3>
+                    <div style="background: rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">🌍</div>
+                        <h3 style="color: var(--light); margin-bottom: 15px;">글로벌 네트워크</h3>
                         <p>전 세계 K-POP 팬들과의 교류를 통한 글로벌 인맥 형성</p>
                     </div>
-                    <div style="background: #f8f9ff; padding: 30px; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 3rem; color: #667eea; margin-bottom: 15px;">🎤</div>
-                        <h3 style="color: #333; margin-bottom: 15px;">K-POP 전문성</h3>
+                    <div style="background: rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">🎤</div>
+                        <h3 style="color: var(--light); margin-bottom: 15px;">K-POP 전문성</h3>
                         <p>실제 연예인과의 교류를 통한 실질적인 K-POP 경험 축적</p>
                     </div>
-                    <div style="background: #f8f9ff; padding: 30px; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 3rem; color: #667eea; margin-bottom: 15px;">🚀</div>
-                        <h3 style="color: #333; margin-bottom: 15px;">미래 기회</h3>
+                    <div style="background: rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">🚀</div>
+                        <h3 style="color: var(--light); margin-bottom: 15px;">미래 기회</h3>
                         <p>엔터테인먼스사 오디션 기회 및 방송 출연 가능성</p>
                     </div>
                 </div>
                 
-                <div style="margin-top: 60px; padding: 30px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 15px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    <h2 style="margin-bottom: 20px;">K-POP HOUSE에서 여러분의 꿈을 실현하세요!</h2>
+                <div style="margin-top: 60px; padding: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 15px; max-width: 800px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);">
+                    <h2 style="margin-bottom: 20px; font-family: 'Black Han Sans', sans-serif;">K-POP HOUSE에서 여러분의 꿈을 실현하세요!</h2>
                     <p>전 세계 K-POP 팬들이 함께하는 특별한 경험, 지금 바로 시작하세요.</p>
                 </div>
             </div>
@@ -568,11 +791,11 @@
         
         <!-- Navigation -->
         <div class="navigation">
-            <button class="nav-btn" id="prevBtn">이전</button>
+            <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> 이전</button>
             <div class="slide-counter">
                 <span id="currentSlide">1</span> / <span id="totalSlides">7</span>
             </div>
-            <button class="nav-btn" id="nextBtn">다음</button>
+            <button class="nav-btn" id="nextBtn">다음 <i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
@@ -621,6 +844,32 @@
             
             // 초기 슬라이드 표시
             showSlide(0);
+            
+            // 부동 요소 생성
+            function createFloatingElements() {
+                const container = document.querySelector('.floating-elements');
+                if (!container) return;
+                
+                for (let i = 0; i < 8; i++) {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    
+                    const size = Math.random() * 80 + 40;
+                    const top = Math.random() * 100;
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 15;
+                    
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    element.style.top = `${top}%`;
+                    element.style.left = `${left}%`;
+                    element.style.animationDelay = `${delay}s`;
+                    
+                    container.appendChild(element);
+                }
+            }
+            
+            createFloatingElements();
         });
     </script>
 </body>
