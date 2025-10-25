@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-POP HOUSE 운영 방안</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,29 +15,28 @@
         }
         
         :root {
-            --primary: #FF4B91;
-            --secondary: #6C4BFF;
-            --accent: #FFD700;
-            --dark: #1A1A2E;
-            --light: #F8F9FF;
+            --primary: #8A6DF1;
+            --secondary: #FF7BAC;
+            --accent: #6ECBF5;
+            --dark: #2D3047;
+            --light: #F8F9FA;
+            --gray: #8E8E93;
         }
         
         body {
-            background: linear-gradient(135deg, var(--dark) 0%, #16213E 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             min-height: 100vh;
             padding: 20px;
-            color: var(--light);
+            color: var(--dark);
         }
         
         .ppt-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: white;
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .slide {
@@ -55,35 +54,23 @@
             text-align: center;
             margin-bottom: 50px;
             padding-bottom: 20px;
-            border-bottom: 2px solid var(--primary);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             position: relative;
         }
         
-        .slide-header::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--accent);
-        }
-        
         .slide-title {
-            font-size: 3rem;
-            color: var(--light);
+            font-size: 2.5rem;
+            color: var(--dark);
             margin-bottom: 15px;
-            font-weight: 900;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            font-family: 'Black Han Sans', sans-serif;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
             letter-spacing: -0.5px;
         }
         
         .slide-subtitle {
-            font-size: 1.5rem;
-            color: var(--accent);
-            font-weight: 500;
+            font-size: 1.3rem;
+            color: var(--gray);
+            font-weight: 400;
         }
         
         .content-grid {
@@ -94,45 +81,40 @@
         }
         
         .feature-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
+            background: white;
+            border-radius: 16px;
             padding: 30px;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             margin-bottom: 25px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
             position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 75, 145, 0.1) 0%, rgba(108, 75, 255, 0.1) 100%);
-            z-index: -1;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
         
         .feature-title {
-            font-size: 1.5rem;
-            color: var(--light);
+            font-size: 1.3rem;
+            color: var(--dark);
             margin-bottom: 15px;
-            font-weight: 700;
+            font-weight: 600;
             display: flex;
             align-items: center;
         }
         
         .feature-title i {
-            margin-right: 10px;
-            color: var(--accent);
+            margin-right: 12px;
+            color: var(--primary);
+            background: rgba(138, 109, 241, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .feature-list {
@@ -141,45 +123,46 @@
         
         .feature-list li {
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             padding-left: 25px;
             line-height: 1.6;
+            color: #555;
         }
         
         .feature-list li:before {
-            content: "★";
-            color: var(--accent);
+            content: "•";
+            color: var(--primary);
             font-weight: bold;
             position: absolute;
             left: 0;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
         }
         
         .eoz-badge {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            background: rgba(138, 109, 241, 0.1);
+            color: var(--primary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
             display: inline-block;
             margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(255, 75, 145, 0.3);
+            border: 1px solid rgba(138, 109, 241, 0.2);
         }
         
         .navigation {
             display: flex;
             justify-content: space-between;
             padding: 20px 80px;
-            background: rgba(26, 26, 46, 0.8);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(248, 249, 250, 0.8);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .nav-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
+            background: white;
+            color: var(--dark);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             padding: 12px 25px;
             border-radius: 30px;
             cursor: pointer;
@@ -188,12 +171,14 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(108, 75, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         }
         
         .nav-btn:hover {
+            background: var(--primary);
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(108, 75, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(138, 109, 241, 0.2);
         }
         
         .nav-btn i {
@@ -201,30 +186,30 @@
         }
         
         .slide-counter {
-            color: var(--light);
-            font-size: 1.1rem;
+            color: var(--gray);
+            font-size: 1rem;
             align-self: center;
             font-weight: 500;
         }
         
         .highlight {
-            color: var(--accent);
-            font-weight: 600;
+            color: var(--primary);
+            font-weight: 500;
         }
         
         .program-schedule {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
+            background: white;
+            border-radius: 16px;
             padding: 25px;
-            border: 2px solid var(--secondary);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
         
         .schedule-day {
-            font-weight: bold;
-            color: var(--accent);
+            font-weight: 600;
+            color: var(--primary);
             margin-bottom: 10px;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             margin-top: 20px;
         }
         
@@ -240,13 +225,14 @@
         }
         
         .point-card {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            background: white;
+            color: var(--dark);
             padding: 25px;
-            border-radius: 15px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
         
         .point-card:hover {
@@ -260,57 +246,52 @@
         }
         
         .metric-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: white;
             padding: 25px;
-            border-radius: 15px;
+            border-radius: 16px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
         
         .metric-value {
-            font-size: 2.5rem;
-            color: var(--accent);
-            font-weight: bold;
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 600;
             margin: 10px 0;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .logo {
-            max-width: 300px;
+            max-width: 280px;
             margin: 0 auto 30px;
             display: block;
         }
         
         .cover-content {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
             position: relative;
             z-index: 2;
         }
         
         .cover-title {
-            font-size: 4.5rem;
-            color: var(--light);
+            font-size: 3.5rem;
+            color: var(--dark);
             margin-bottom: 20px;
-            font-weight: 900;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            font-family: 'Black Han Sans', sans-serif;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
             letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
         .cover-subtitle {
-            font-size: 1.8rem;
-            color: var(--light);
+            font-size: 1.5rem;
+            color: var(--gray);
             margin-bottom: 40px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
+            font-weight: 300;
         }
         
         .cover-features {
@@ -322,14 +303,14 @@
         }
         
         .cover-feature {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            width: 200px;
+            background: white;
+            border-radius: 16px;
+            padding: 30px 25px;
+            width: 220px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
         
         .cover-feature:hover {
@@ -337,9 +318,18 @@
         }
         
         .cover-feature i {
-            font-size: 2.5rem;
-            color: var(--accent);
+            font-size: 2.2rem;
+            color: var(--primary);
             margin-bottom: 15px;
+            background: rgba(138, 109, 241, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .cover-bg {
@@ -348,46 +338,52 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 20%, rgba(255, 75, 145, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(108, 75, 255, 0.2) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 109, 241, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 123, 172, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
         
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .image-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .image-container img {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        
-        .floating-element {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-            100% { transform: translateY(0) rotate(360deg); }
+            object-fit: cover;
         }
         
         .image-placeholder {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            flex-direction: column;
+        }
+        
+        .image-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--gray);
+            opacity: 0.5;
+        }
+        
+        .divider {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.08);
+            margin: 30px 0;
         }
         
         @media (max-width: 768px) {
@@ -396,11 +392,11 @@
             }
             
             .slide-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
             .cover-title {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
             .content-grid {
@@ -430,26 +426,21 @@
     <div class="ppt-container">
         <!-- Slide 1: Cover -->
         <div class="slide active" id="slide1">
-            <div class="floating-elements">
-                <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 10%;"></div>
-                <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 80%;"></div>
-                <div class="floating-element" style="width: 80px; height: 80px; top: 80%; left: 20%;"></div>
-                <div class="floating-element" style="width: 120px; height: 120px; top: 30%; left: 70%;"></div>
-            </div>
             <div class="cover-bg"></div>
             <div class="cover-content">
-                <!-- 로고 자리 - 실제로는 WORLD K-POP CENTER 로고 이미지가 들어갑니다 -->
+                <!-- 로고 자리 -->
                 <div class="logo">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: var(--accent); text-align: center; font-family: 'Black Han Sans', sans-serif;">
+                    <div style="font-size: 2rem; font-weight: 600; color: var(--primary); text-align: center; font-family: 'Playfair Display', serif; margin-bottom: 10px;">
                         WORLD K-POP CENTER
                     </div>
+                    <div style="height: 2px; background: linear-gradient(90deg, transparent, var(--primary), transparent); margin: 0 auto; width: 60%;"></div>
                 </div>
                 <h1 class="cover-title">K-POP HOUSE</h1>
                 <p class="cover-subtitle">English Only Zone을 중심으로 한 글로벌 K-POP 체험 기숙사<br>전 세계 K-POP 팬들과 연예인 지망생이 함께하는 특별한 공간</p>
                 
                 <div class="cover-features">
                     <div class="cover-feature">
-                        <i class="fas fa-globe-asia"></i>
+                        <i class="fas fa-language"></i>
                         <h3>English Only Zone</h3>
                         <p>영어만 사용하는 특별 공간</p>
                     </div>
@@ -476,7 +467,7 @@
             <div class="content-grid">
                 <div>
                     <div class="feature-card">
-                        <div class="eoz-badge"><i class="fas fa-language"></i> EOZ 핵심 프로그램</div>
+                        <div class="eoz-badge">EOZ 핵심 프로그램</div>
                         <h3 class="feature-title"><i class="fas fa-layer-group"></i> 계층별 영어 프로그램</h3>
                         <ul class="feature-list">
                             <li><span class="highlight">Beginner Zone:</span> 기본 회화 위주 생활 영어</li>
@@ -486,8 +477,8 @@
                     </div>
                     
                     <div class="feature-card">
-                        <div class="eoz-badge"><i class="fas fa-mobile-alt"></i> EOZ 핵심 시스템</div>
-                        <h3 class="feature-title"><i class="fas fa-passport"></i> K-English Pass 앱 시스템</h3>
+                        <div class="eoz-badge">EOZ 핵심 시스템</div>
+                        <h3 class="feature-title"><i class="fas fa-mobile-alt"></i> K-English Pass 앱 시스템</h3>
                         <ul class="feature-list">
                             <li>일일 영어 사용 시간 측정 및 분석</li>
                             <li>개인별 맞춤형 영어 학습 리포트 제공</li>
@@ -496,8 +487,11 @@
                         </ul>
                     </div>
                     
-                    <div class="image-placeholder">
-                        <i class="fas fa-users" style="font-size: 3rem;"></i>
+                    <div class="image-container">
+                        <div class="image-placeholder">
+                            <i class="fas fa-users"></i>
+                            <div>EOZ 그룹 활동 이미지</div>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -521,8 +515,11 @@
                         </ul>
                     </div>
                     
-                    <div class="image-placeholder">
-                        <i class="fas fa-graduation-cap" style="font-size: 3rem;"></i>
+                    <div class="image-container">
+                        <div class="image-placeholder">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>영어 코칭 세션 이미지</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -558,7 +555,7 @@
                 </div>
                 <div>
                     <div class="program-schedule">
-                        <h3 style="color: var(--accent); margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-alt"></i> 주간 멘토링 스케줄</h3>
+                        <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-alt"></i> 주간 멘토링 스케줄</h3>
                         <div class="schedule-day">월요일: 보컬 트레이닝 데이</div>
                         <ul class="feature-list">
                             <li>오전 10시: 기본 발성 연습</li>
@@ -566,7 +563,7 @@
                             <li>오후 7시: 그룹 보컬 하모니 워크숍</li>
                         </ul>
                         
-                        <div class="schedule-day">수요일: 댄스 크리틱 데이</div>
+                        <div class="schedule-day">수요일: 댄스 크리틱 데y</div>
                         <ul class="feature-list">
                             <li>오전 11시: K-POP 안무 분석</li>
                             <li>오후 3시: 개인 퍼포먼스 코칭</li>
@@ -581,8 +578,11 @@
                         </ul>
                     </div>
                     
-                    <div class="image-placeholder" style="margin-top: 20px;">
-                        <i class="fas fa-microphone-alt" style="font-size: 3rem;"></i>
+                    <div class="image-container" style="margin-top: 20px;">
+                        <div class="image-placeholder">
+                            <i class="fas fa-microphone-alt"></i>
+                            <div>연예인 멘토링 이미지</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -606,8 +606,11 @@
                         </ul>
                     </div>
                     
-                    <div class="image-placeholder">
-                        <i class="fas fa-landmark" style="font-size: 3rem;"></i>
+                    <div class="image-container">
+                        <div class="image-placeholder">
+                            <i class="fas fa-landmark"></i>
+                            <div>남산 전경 이미지</div>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -642,21 +645,21 @@
             </div>
             
             <div style="margin-bottom: 30px;">
-                <h3 style="color: var(--light); margin-bottom: 20px; text-align: center;"><i class="fas fa-coins"></i> K-English 포인트 제도</h3>
+                <h3 style="color: var(--dark); margin-bottom: 20px; text-align: center;"><i class="fas fa-coins"></i> K-English 포인트 제도</h3>
                 <div class="point-system">
                     <div class="point-card">
                         <h4><i class="fas fa-clock"></i> EOZ 준수 포인트</h4>
-                        <div style="font-size: 2.5rem; margin: 15px 0; color: var(--accent);">10pt/시간</div>
+                        <div class="metric-value">10pt/시간</div>
                         <p>공용 공간 영어 사용 시 시간당 적립</p>
                     </div>
                     <div class="point-card">
                         <h4><i class="fas fa-bullhorn"></i> 영어 발표 포인트</h4>
-                        <div style="font-size: 2.5rem; margin: 15px 0; color: var(--accent);">50pt/회</div>
+                        <div class="metric-value">50pt/회</div>
                         <p>세션 참여 및 발표 시 추가 적립</p>
                     </div>
                     <div class="point-card">
                         <h4><i class="fas fa-video"></i> 콘텐츠 제작 포인트</h4>
-                        <div style="font-size: 2.5rem; margin: 15px 0; color: var(--accent);">100pt/개</div>
+                        <div class="metric-value">100pt/개</div>
                         <p>영어 콘텐츠 제작 및 공유 시 적립</p>
                     </div>
                 </div>
@@ -687,8 +690,11 @@
                         </ul>
                     </div>
                     
-                    <div class="image-placeholder">
-                        <i class="fas fa-award" style="font-size: 3rem;"></i>
+                    <div class="image-container">
+                        <div class="image-placeholder">
+                            <i class="fas fa-award"></i>
+                            <div>수료식 이미지</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -701,7 +707,7 @@
                 <p class="slide-subtitle">체계적인 지표 관리와 지속적 개선을 위한 시스템</p>
             </div>
             
-            <h3 style="color: var(--light); margin: 30px 0 20px; text-align: center;"><i class="fas fa-chart-bar"></i> EOZ 성과 측정 지표</h3>
+            <h3 style="color: var(--dark); margin: 30px 0 20px; text-align: center;"><i class="fas fa-chart-bar"></i> EOZ 성과 측정 지표</h3>
             <div class="metric-grid">
                 <div class="metric-card">
                     <h4><i class="fas fa-comments"></i> 영어 사용률</h4>
@@ -725,7 +731,9 @@
                 </div>
             </div>
             
-            <div class="content-grid" style="margin-top: 40px;">
+            <div class="divider"></div>
+            
+            <div class="content-grid">
                 <div>
                     <div class="feature-card">
                         <h3 class="feature-title"><i class="fas fa-smile"></i> 만족도 관리</h3>
@@ -759,32 +767,32 @@
             </div>
             
             <div style="text-align: center; margin-top: 60px;">
-                <div style="font-size: 1.5rem; color: var(--light); max-width: 800px; margin: 0 auto 50px; line-height: 1.8;">
+                <div style="font-size: 1.3rem; color: var(--gray); max-width: 800px; margin: 0 auto 50px; line-height: 1.8;">
                     K-POP HOUSE는 단순한 기숙사를 넘어, 전 세계 K-POP 팬들이 한국의 K-POP 문화를 깊이 체험하고, 
                     영어 실력을 향상시키며, 실제 연예인 및 지망생과 교류할 수 있는 <span class="highlight">유일무이한 공간</span>입니다.
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin: 0 auto;">
-                    <div style="background: rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">🌍</div>
-                        <h3 style="color: var(--light); margin-bottom: 15px;">글로벌 네트워크</h3>
-                        <p>전 세계 K-POP 팬들과의 교류를 통한 글로벌 인맥 형성</p>
+                    <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.03);">
+                        <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;">🌍</div>
+                        <h3 style="color: var(--dark); margin-bottom: 15px;">글로벌 네트워크</h3>
+                        <p style="color: var(--gray);">전 세계 K-POP 팬들과의 교류를 통한 글로벌 인맥 형성</p>
                     </div>
-                    <div style="background: rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">🎤</div>
-                        <h3 style="color: var(--light); margin-bottom: 15px;">K-POP 전문성</h3>
-                        <p>실제 연예인과의 교류를 통한 실질적인 K-POP 경험 축적</p>
+                    <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.03);">
+                        <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;">🎤</div>
+                        <h3 style="color: var(--dark); margin-bottom: 15px;">K-POP 전문성</h3>
+                        <p style="color: var(--gray);">실제 연예인과의 교류를 통한 실질적인 K-POP 경험 축적</p>
                     </div>
-                    <div style="background: rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">🚀</div>
-                        <h3 style="color: var(--light); margin-bottom: 15px;">미래 기회</h3>
-                        <p>엔터테인먼스사 오디션 기회 및 방송 출연 가능성</p>
+                    <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.03);">
+                        <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;">🚀</div>
+                        <h3 style="color: var(--dark); margin-bottom: 15px;">미래 기회</h3>
+                        <p style="color: var(--gray);">엔터테인먼스사 오디션 기회 및 방송 출연 가능성</p>
                     </div>
                 </div>
                 
-                <div style="margin-top: 60px; padding: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 15px; max-width: 800px; margin-left: auto; margin-right: auto; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);">
-                    <h2 style="margin-bottom: 20px; font-family: 'Black Han Sans', sans-serif;">K-POP HOUSE에서 여러분의 꿈을 실현하세요!</h2>
-                    <p>전 세계 K-POP 팬들이 함께하는 특별한 경험, 지금 바로 시작하세요.</p>
+                <div style="margin-top: 60px; padding: 30px; background: white; color: var(--dark); border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.03);">
+                    <h2 style="margin-bottom: 20px; font-family: 'Playfair Display', serif;">K-POP HOUSE에서 여러분의 꿈을 실현하세요!</h2>
+                    <p style="color: var(--gray);">전 세계 K-POP 팬들이 함께하는 특별한 경험, 지금 바로 시작하세요.</p>
                 </div>
             </div>
         </div>
@@ -844,32 +852,6 @@
             
             // 초기 슬라이드 표시
             showSlide(0);
-            
-            // 부동 요소 생성
-            function createFloatingElements() {
-                const container = document.querySelector('.floating-elements');
-                if (!container) return;
-                
-                for (let i = 0; i < 8; i++) {
-                    const element = document.createElement('div');
-                    element.classList.add('floating-element');
-                    
-                    const size = Math.random() * 80 + 40;
-                    const top = Math.random() * 100;
-                    const left = Math.random() * 100;
-                    const delay = Math.random() * 15;
-                    
-                    element.style.width = `${size}px`;
-                    element.style.height = `${size}px`;
-                    element.style.top = `${top}%`;
-                    element.style.left = `${left}%`;
-                    element.style.animationDelay = `${delay}s`;
-                    
-                    container.appendChild(element);
-                }
-            }
-            
-            createFloatingElements();
         });
     </script>
 </body>
