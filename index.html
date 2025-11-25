@@ -11,13 +11,994 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary: #2a6b3c;
+            --primary-light: #3a8b4c;
+            --secondary: #d4af37;
+            --accent: #8b4513;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(42, 107, 60, 0.1);
+            border-radius: 30px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 1.5rem;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .hero-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .mouse::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
+            background-color: white;
+            border-radius: 2px;
+            animation: scroll 1.5s infinite;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) translateY(15px);
+                opacity: 0;
+            }
+        }
+        
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .about-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .about-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background-color: rgba(42, 107, 60, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background-color: rgba(42, 107, 60, 0.05);
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Products Section */
+        .products-section {
+            background-color: var(--light-gray);
+        }
+        
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .product-image {
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .product-info {
+            padding: 2rem;
+        }
+        
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+        }
+        
+        .product-company {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-features {
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(42, 107, 60, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Healing Section */
+        .healing-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+        
+        .healing-hero-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .healing-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .healing-hero-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .lead {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .credentials {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .credential-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .healing-explanation {
+            margin-bottom: 4rem;
+        }
+        
+        .principle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .principle-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .principle-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background-color: rgba(42, 107, 60, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .healing-results {
+            margin-bottom: 4rem;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .result-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .result-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        .result-icon.success {
+            background-color: var(--primary);
+        }
+        
+        .testimonials {
+            margin-bottom: 4rem;
+        }
+        
+        .testimonial-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            background-color: white;
+            transition: var(--transition);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(42, 107, 60, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-info h4 {
+            margin-bottom: 0.2rem;
+        }
+        
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .badge-success {
+            background-color: rgba(42, 107, 60, 0.1);
+            color: var(--primary);
+        }
+        
+        .badge-recovery {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--secondary);
+        }
+        
+        .healing-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem;
+            background-color: rgba(42, 107, 60, 0.05);
+            border-radius: 10px;
+        }
+        
+        .note-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .note-content h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--light-gray);
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .info-card {
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            background-color: white;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .info-card.highlight {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .info-card.highlight a {
+            color: white;
+        }
+        
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background-color: rgba(42, 107, 60, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .info-card.highlight .info-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .contact-cta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 3rem;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .cta-content h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .cta-image {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .cta-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .cta-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand p {
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .footer-info h4, .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-info p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        
+        .scroll-top-btn.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .about-content, .product-showcase, .healing-hero, .contact-content, .contact-cta {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                width: 80%;
+                height: calc(100vh - 70px);
+                padding: 2rem;
+                box-shadow: var(--shadow-lg);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .about-grid, .principle-grid, .results-grid, .testimonial-slider {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -44,7 +1025,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title" data-aos="fade-up">K-발효 기술의 선두주자</h1>
             <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
@@ -70,7 +1050,6 @@
                 <h2 class="section-title">K-발효, 세계가 인정하는 기술</h2>
                 <p class="section-subtitle">대한민국의 우수한 자연환경과 첨단 기술의 완벽한 조화</p>
             </div>
-
             <div class="about-grid">
                 <div class="about-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="about-icon">
@@ -79,7 +1058,6 @@
                     <h3>4계절의 축복</h3>
                     <p>뚜렷한 사계절은 효소 균주 배양에 최적의 환경을 제공합니다. 봄, 여름, 가을, 겨울 각각의 기후가 발효 과정에 이상적인 조건을 만들어냅니다.</p>
                 </div>
-
                 <div class="about-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="about-icon">
                         <i class="fas fa-tint"></i>
@@ -87,7 +1065,6 @@
                     <h3>우수한 수질</h3>
                     <p>청정 자연에서 얻은 깨끗한 물은 발효 식품의 품질을 결정짓는 핵심 요소입니다. 한국의 우수한 수질이 프리미엄 발효 식품을 만듭니다.</p>
                 </div>
-
                 <div class="about-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="about-icon">
                         <i class="fas fa-microscope"></i>
@@ -96,19 +1073,18 @@
                     <p>전세계 Top 5에 드는 발효 기술력으로 전통 발효의 가치를 현대 과학으로 승화시킵니다. 산울의 기술은 세계가 인정합니다.</p>
                 </div>
             </div>
-
             <div class="about-content" data-aos="fade-up" data-aos-delay="400">
                 <div class="about-image">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=H7rKH9hZU0jPSN4hij8uXjQALL3H6KH0LV6YPBXvB2WMmsK%2By46R1uc72rkeWXR%2BYAMGlzKM5cm5LC9UDSzjIUo6EPIrStqxTXhyPtS5aEPhfkE2jxh7xC%2BoC6vGa1z75lqD2eHCyHflhYh1mvN1j3QrOOex3URlpXV0ZmOnWn%2Bv&u2=BD4Trx1CwbRtsDoB&width=2560" alt="발효 기술">
+                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="발효 기술">
                 </div>
                 <div class="about-text">
                     <h3>효소 발효의 명가, (주)산울</h3>
                     <p>
-                        (주)산울은 효소를 활용한 발효 식품 전문 회사로, 대한민국의 우수한 자연환경과 
+                        (주)산울은 효소를 활용한 발효 식품 전문 회사로, 대한민국의 우수한 자연환경과
                         세계 최고 수준의 기술력을 바탕으로 건강한 식품을 생산합니다.
                     </p>
                     <p>
-                        K-발효 기술은 대한민국이 최고입니다. 4계절이 뚜렷하고 수질이 우수하여 
+                        K-발효 기술은 대한민국이 최고입니다. 4계절이 뚜렷하고 수질이 우수하여
                         발효에 필요한 효소 균주 배양에 가장 적합한 환경을 가지고 있기 때문입니다.
                     </p>
                     <div class="stats-grid">
@@ -138,20 +1114,18 @@
                 <h2 class="section-title">프리미엄 건강 솔루션</h2>
                 <p class="section-subtitle">산울의 기술이 만든 건강기능식품 원재료</p>
             </div>
-
             <div class="product-showcase" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-image">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=vHw4cIKr1JeiFmdSTJXeM7QKHi00gf602DC1bI6qvERMUu5AKmCtZ3HxxEqRhlXGfXvapeHexV0Qr9VIbFepZAlIRKXk%2FCv9NVtceg2aon56vynveZ1JbY4%3D&u2=pA2ekd9RCcoEYSZF&width=2560" alt="관절eye조아">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="관절eye조아">
                     <div class="product-badge">식약처 인증</div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">관절 eye 조아</h3>
                     <p class="product-company">(주)웰레스트 건강기능식품</p>
                     <p class="product-description">
-                        산울의 발효 기술로 제조된 프리미엄 원재료를 공급하여 2025년 4월 
+                        산울의 발효 기술로 제조된 프리미엄 원재료를 공급하여 2025년 4월
                         식약처 정식 등록을 완료한 건강기능식품입니다.
                     </p>
-
                     <div class="product-features">
                         <div class="feature-item">
                             <div class="feature-icon">
@@ -162,7 +1136,6 @@
                                 <p>관절 및 연골 건강에 도움</p>
                             </div>
                         </div>
-
                         <div class="feature-item">
                             <div class="feature-icon">
                                 <i class="fas fa-eye"></i>
@@ -172,7 +1145,6 @@
                                 <p>어두운 곳에서 시각 적응 / 피부와 점막 형성 및 유지</p>
                             </div>
                         </div>
-
                         <div class="feature-item">
                             <div class="feature-icon">
                                 <i class="fas fa-shield-alt"></i>
@@ -183,7 +1155,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="product-meta">
                         <div class="meta-item">
                             <i class="fas fa-check-circle"></i>
@@ -207,16 +1178,15 @@
                 <h2 class="section-title">항암기공 치유 프로그램</h2>
                 <p class="section-subtitle">유춘봉 원장의 20여년 경력과 노하우</p>
             </div>
-
             <div class="healing-hero" data-aos="fade-up" data-aos-delay="200">
                 <div class="healing-hero-image">
-                    <img src="https://sspark.genspark.ai/cfimages?u1=8ifAEmHs4jpDG25iNPeAsS5kxOM81gY9cKjq3h1ZVASd2xaR%2FCwWtWMPZj0m9xIB7%2BDoOV9En57OnvzoOd1QxDl1Yx6a6YSfLV%2BlGhgf%2BfmbqQlhQt0oNek%3D&u2=4dDaPEzOaYu1CfJR&width=2560" alt="항암기공">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2120&q=80" alt="항암기공">
                 </div>
                 <div class="healing-hero-content">
                     <h3>한국 최초 항암기공 전파</h3>
                     <p class="lead">
-                        유춘봉 원장은 한국에 항암기공을 최초로 전파한 선구자로, 
-                        20여년간 수백 명의 암환자들에게 항암기공을 지도하며 
+                        유춘봉 원장은 한국에 항암기공을 최초로 전파한 선구자로,
+                        20여년간 수백 명의 암환자들에게 항암기공을 지도하며
                         탁월한 치유 효과를 입증해왔습니다.
                     </p>
                     <div class="credentials">
@@ -235,12 +1205,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="healing-content">
                 <div class="healing-explanation" data-aos="fade-up">
                     <h3>항암기공이란?</h3>
                     <p>
-                        항암기공은 몸의 기운을 활발하게 돌리는 공력으로, 정신, 육체, 기(氣)를 
+                        항암기공은 몸의 기운을 활발하게 돌리는 공력으로, 정신, 육체, 기(氣)를
                         조화롭게 하여 암세포를 억제하고 생명력을 회복시키는 운동요법입니다.
                     </p>
                     <div class="principle-grid">
@@ -267,7 +1236,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="healing-results" data-aos="fade-up" data-aos-delay="200">
                     <h3>치유 성과</h3>
                     <div class="results-grid">
@@ -294,7 +1262,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="testimonials" data-aos="fade-up" data-aos-delay="300">
                     <h3>치유 사례</h3>
                     <div class="testimonial-slider">
@@ -310,8 +1277,8 @@
                             </div>
                             <div class="testimonial-content">
                                 <p>
-                                    서울대병원에서 3개의 종양 중 2개는 수술 불가 판정을 받고 
-                                    4개월 시한부를 선고받았습니다. 하체가 마비되어 갈지자로 걷다 
+                                    서울대병원에서 3개의 종양 중 2개는 수술 불가 판정을 받고
+                                    4개월 시한부를 선고받았습니다. 하체가 마비되어 갈지자로 걷다
                                     쓰러지기도 했던 제가 1년간의 항암기공 수련 후 완전히 건강을 되찾았습니다.
                                 </p>
                             </div>
@@ -319,7 +1286,6 @@
                                 <span class="badge badge-success">완치</span>
                             </div>
                         </div>
-
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-icon">
@@ -332,8 +1298,8 @@
                             </div>
                             <div class="testimonial-content">
                                 <p>
-                                    수술 후 걸을 수조차 없었던 제가 3일 만에 제기차기를 하고, 
-                                    5일 만에 식사를 할 수 있었습니다. 100일이 지난 지금 
+                                    수술 후 걸을 수조차 없었던 제가 3일 만에 제기차기를 하고,
+                                    5일 만에 식사를 할 수 있었습니다. 100일이 지난 지금
                                     달리기도 하고 모든 것이 정상으로 회복되었습니다.
                                 </p>
                             </div>
@@ -341,7 +1307,6 @@
                                 <span class="badge badge-success">완치</span>
                             </div>
                         </div>
-
                         <div class="testimonial-card">
                             <div class="testimonial-header">
                                 <div class="testimonial-icon">
@@ -354,8 +1319,8 @@
                             </div>
                             <div class="testimonial-content">
                                 <p>
-                                    3개월 시한부 판정을 받았으나 6개월간 기공수련 후 
-                                    현재까지 4년간 건강하게 생활하고 있습니다. 
+                                    3개월 시한부 판정을 받았으나 6개월간 기공수련 후
+                                    현재까지 4년간 건강하게 생활하고 있습니다.
                                     항암기공이 제게 새로운 삶을 선물했습니다.
                                 </p>
                             </div>
@@ -365,7 +1330,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="healing-note" data-aos="fade-up" data-aos-delay="400">
                     <div class="note-icon">
                         <i class="fas fa-info-circle"></i>
@@ -373,9 +1337,9 @@
                     <div class="note-content">
                         <h4>항암기공의 원리</h4>
                         <p>
-                            기공은 약이나 의료행위가 아닌 운동요법입니다. 
-                            체내의 기를 기르고 단련하여 활발히 순환케 함으로써 
-                            환자 자신의 저항력을 높여주고 암세포를 억제하거나 재발을 막는데 
+                            기공은 약이나 의료행위가 아닌 운동요법입니다.
+                            체내의 기를 기르고 단련하여 활발히 순환케 함으로써
+                            환자 자신의 저항력을 높여주고 암세포를 억제하거나 재발을 막는데
                             탁월한 효과가 있습니다.
                         </p>
                     </div>
@@ -392,7 +1356,6 @@
                 <h2 class="section-title">상담 문의</h2>
                 <p class="section-subtitle">건강한 미래를 위한 첫 걸음, 지금 시작하세요</p>
             </div>
-
             <div class="contact-content" data-aos="fade-up" data-aos-delay="200">
                 <div class="contact-info">
                     <div class="info-card">
@@ -402,7 +1365,6 @@
                         <h3>회사명</h3>
                         <p>(주)산울</p>
                     </div>
-
                     <div class="info-card">
                         <div class="info-icon">
                             <i class="fas fa-user-tie"></i>
@@ -410,7 +1372,6 @@
                         <h3>대표</h3>
                         <p>유춘봉 원장</p>
                     </div>
-
                     <div class="info-card highlight">
                         <div class="info-icon">
                             <i class="fas fa-phone"></i>
@@ -419,12 +1380,11 @@
                         <p><a href="tel:010-6242-1122">010-6242-1122</a></p>
                     </div>
                 </div>
-
                 <div class="contact-cta">
                     <div class="cta-content">
                         <h3>건강 상담을 원하시나요?</h3>
                         <p>
-                            제품 문의, 항암기공 프로그램 상담, 기타 문의사항이 있으시면 
+                            제품 문의, 항암기공 프로그램 상담, 기타 문의사항이 있으시면
                             언제든지 연락 주시기 바랍니다.
                         </p>
                         <a href="tel:010-6242-1122" class="cta-button">
@@ -433,7 +1393,7 @@
                         </a>
                     </div>
                     <div class="cta-image">
-                        <img src="https://sspark.genspark.ai/cfimages?u1=3kw11Am5O72lpzx%2BiLXOGS4sbfJOGxdCl6rivsioH9eboqgloI9J1KzJtXQEYYzzbvYekv%2Bg5dcykL8Vqte2k6VgOP5IMNBVOlrIOyX9Yqv9N5ugu8irob6Or62j5hnBQnSHrFW3OYntjA%3D%3D&u2=8cozlTGDAIDdRgAy&width=2560" alt="상담">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="상담">
                     </div>
                 </div>
             </div>
@@ -482,8 +1442,60 @@
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Custom JavaScript -->
-    <script src="js/script.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9a3cd262ae7b21d8","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.9.1","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile Navigation Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
 </body>
 </html>
